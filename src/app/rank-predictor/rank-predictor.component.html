@@ -1,0 +1,102 @@
+<div class="flex flex-col items-start sm:items-center px-5">
+  <div class="text-2xl lg:text-4xl font-bold mb-4">Rank Predictor</div>
+  <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
+</div>
+<div class="form-container flex items-center justify-items-center mx-5 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
+  <form class="px-12 py-8 w-full" id="college-form" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm">
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="name" type="text" placeholder="Name" [(ngModel)]="userInput.name">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone">
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="mb-6">
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="marks">Marks*</label>
+        <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+               name="marks" type="number" placeholder="Phone" required [(ngModel)]="userInput.marks">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Category</label>
+        <select id="category" name="category" [(ngModel)]="userInput.category" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
+          <option value="OPEN">Open</option>
+          <option value="SC">SC</option>
+          <option value="ST">ST</option>
+        </select>
+      </div>
+    </div>
+    <ng-container *ngIf="(rankPrediction | async) as rankRange; else loading">
+      <div *ngIf="rankRange.minRank !== undefined && rankRange.maxRank !== undefined">
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is between {{rankRange.minRank}} and {{rankRange.maxRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor()">available college courses</span> for this rank?</div>
+      </div>
+      <div *ngIf="rankRange.minRank !== undefined && rankRange.maxRank === undefined">
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is above {{rankRange.minRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor()">available college courses</span> for this rank?</div>
+      </div>
+      <div *ngIf="rankRange.minRank === undefined && rankRange.maxRank !== undefined ">
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is below {{rankRange.maxRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor()">available college courses</span> for this rank?</div>
+      </div>
+    </ng-container>
+  </form>
+</div>
+<div class="mt-8 mb-8 bg-cover flex justify-center"> 
+  <button type="submit" form="college-form"
+          class="inline-block px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
+</div>
+<ng-template #loading>Loading</ng-template>
+
+<!-- <form class="relative font-medium md:h-screen flex items-center content-center" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm"> -->
+<!--   <div class="mr-auto ml-auto w-full"> -->
+<!--     <div class="w-full max-w-md mr-auto ml-auto mt-4 mb-1 text-center"> -->
+<!--       <h1 class="text-gray-800 block text-3xl font-extrabold font-title">JEE Mains Rank Predictor</h1> -->
+<!--     </div> -->
+<!--     <div class="w-full max-w-md mr-auto ml-auto pl-4 pr-4 mt-3 mb-6 text-center font-medium text-sm"> -->
+<!--       Calculate you JEE Main 2021 Rank using your JEE Main percentile or Score. -->
+<!--     </div> -->
+<!--     <div class="w-full max-w-md mr-auto ml-auto mt-4"> -->
+<!--       <div class="bg-white shadow rounded-md px-8 py-8 mb-4 ml-auto mr-auto"> -->
+<!--         <div class="mb-4"> -->
+<!--           <label class="block text-gray-700 text-sm font-medium mb-2" for="name">Name</label> -->
+<!--           <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300" -->
+<!--                  name="name" type="text" placeholder="name" [(ngModel)]="userInput.name"> -->
+<!--         </div> -->
+<!--         <div class="grid sm:grid-cols-2 gap-4"> -->
+<!--           <div class="mb-4"> -->
+<!--             <label class="block text-gray-700 text-sm font-medium mb-2" for="username">Email Address*</label> -->
+<!--             <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300" -->
+<!--                    name="username" type="text" placeholder="user@example.com" [(ngModel)]="userInput.email" required> -->
+<!--           </div> -->
+<!--           <div class="mb-4"> -->
+<!--             <label class="block text-gray-700 text-sm font-medium mb-2" for="phone">Contact *</label> -->
+<!--             <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300" -->
+<!--                    name="phone" type="text" placeholder="+91 XXXXXXXXXX" required [(ngModel)]="userInput.phone"> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--         <div class="mb-6"> -->
+<!--           <label class="block text-gray-700 text-sm font-medium mb-2" for="marks">Total marks *</label> -->
+<!--           <input class="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300" -->
+<!--                  name="marks" type="number" placeholder="name" required [(ngModel)]="userInput.marks"> -->
+<!--         </div> -->
+
+<!--         <div class="mb-4"> -->
+<!--           <button type="submit" -->
+<!--                   class="bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-sm py-3 px-0 rounded text-center w-full hover:bg-tertiary duration-200 transition-all">Calculate rank -->
+<!--             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 24 24" width="24" height="24" preserveAspectRatio="xMinYMin" class="inline-block icon__icon"><path fill="white" d="M10.586 5.657l-3.95-3.95A1 1 0 0 1 8.05.293l5.657 5.657a.997.997 0 0 1 0 1.414L8.05 13.021a1 1 0 1 1-1.414-1.414l3.95-3.95H1a1 1 0 1 1 0-2h9.586z"></path></svg> -->
+<!--           </button> -->
+<!--         </div> -->
+<!--         <div (click)="navToCollegePredictor()">Collge predictor</div> -->
+<!--         <div class="w-full p-3 bg-gray-800" *ngIf="rankPrediction"> -->
+<!--           <div class="w-full max-w-md mr-auto ml-auto text-white text-center font-medium text-sm">Your predicted rank is between {{rankPrediction.minRank}} and {{rankPrediction.maxRank}}</div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </form> -->

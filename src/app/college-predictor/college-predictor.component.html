@@ -1,0 +1,65 @@
+<div class="flex flex-col items-start sm:items-center px-5">
+  <div class="text-2xl lg:text-4xl font-bold mb-4">College Predictor</div>
+  <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
+</div>
+<div class="form-container flex items-center justify-items-center mx-5 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
+  <form class="px-12 py-8 w-full" id="college-form" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm">
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="name" type="text" placeholder="Name" [(ngModel)]="userInput.name">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone">
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div class="mb-4">
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="rank">Rank*</label>
+      <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
+             name="rank" type="number" placeholder="Phone" required [(ngModel)]="userInput.rank">
+    </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Category</label>
+        <select id="category" name="category" [(ngModel)]="userInput.category" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
+          <option value="OPEN">Open</option>
+          <option value="SC">SC</option>
+          <option value="ST">ST</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Seat pool</label>
+        <select id="category" name="seatPool" [(ngModel)]="userInput.seatPool" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
+          <option value="Gender-Neutral">Gender Neutral</option>
+          <option value="Female-Only">Female Only</option>
+        </select>
+      </div>
+    </div>
+    <div class="text-sm font-italic">*Not sure about your JEE Mains rank? Use our <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToRankPredictor()">Rank Predictor</span> to get your rank.</div>
+  </form>
+</div>
+<div class="mt-8 bg-cover flex justify-center"> 
+  <button type="submit" form="college-form"
+          class="inline-block px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
+</div>
+<div class="h-px mx-4 my-10 bg-blue-100"></div>
+
+<ng-container *ngIf="(colleges$ | async) as colleges; else loading">
+  <div *ngIf="colleges?.length === 0" class="text-lg font-italic mx-4 mb-4">No colleges found, try with different rank.</div>
+  <div *ngIf="colleges?.length !== 0" class="text-2xl mx-4 mb-8">Top {{colleges?.length}} results</div>
+  <div *ngFor="let college of colleges || []" class="mx-4 mb-4">
+    <app-college [college]="college"></app-college>
+  </div>
+</ng-container>
+<ng-template #loading>
+<div class="loading flex items-center justify-center min-h-screen">
+  <div class="mt-8">Loading</div>
+</div>
+</ng-template>
+

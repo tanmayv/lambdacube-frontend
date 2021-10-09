@@ -1,0 +1,12 @@
+<!-- <strong>{{college?.collegeName}}</strong> -->
+<!-- <ol> -->
+<!--   <li *ngFor="let branch of college.branches.slice(0,3)"><i>{{branch.branchName}} : {{branch.openingRank}}-{{branch.closingRank}} </i></li> -->
+<!-- </ol> -->
+<!-- <br/> -->
+<div class="bg-blue-100 px-10 py-10">
+  <div class="text-xl mb-4 text-bold">{{college?.collegeName}}</div>
+  <div class="flex flex-row flex-wrap gap-4">
+    <div *ngFor="let branch of college.branches.slice(0, 5)" class="px-6 py-3 bg-white rounded-lg shadow shadow-lg">{{branch.branchName}}</div>
+  </div>
+</div>
+
