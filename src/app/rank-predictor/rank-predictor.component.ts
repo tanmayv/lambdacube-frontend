@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CollegePredictorService } from '../college-predictor/college-predictor.service';
+import { StorageService } from '../shared/storage.service';
 import { RankInfo } from './rank-info';
 import { RankPredictorInput } from './rank-predictor-input';
 
@@ -12,18 +13,23 @@ import { RankPredictorInput } from './rank-predictor-input';
 })
 export class RankPredictorComponent implements OnInit {
 
-  constructor(private router: Router, private predictorService: CollegePredictorService) { }
+  constructor(private router: Router, private predictorService: CollegePredictorService,
+             private storageService: StorageService) { }
   userInput: RankPredictorInput = new RankPredictorInput("", "", "", 0, "OPEN");
   rankPrediction: Observable<RankInfo> = of(new RankInfo());
+   
   
   ngOnInit(): void {
+    const userInfo: any = this.storageService.getUserInfo();
+    this.userInput = {...this.userInput, ...userInfo };
   }
 
   onSubmit() {
+    this.storageService.setUserInfo({name: this.userInput.name, email: this.userInput.email, phone: this.userInput.phone});
     this.rankPrediction = this.predictorService.predictRank(this.userInput.marks);
   }
 
-  navToCollegePredictor() {
-    this.router.navigate(["college-predictor"], {queryParams: {rank: "100"}});
+  navToCollegePredictor(rank: number) {
+    this.router.navigate(["college-predictor"], {queryParams: {rank: rank}});
   }
 }

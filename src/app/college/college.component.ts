@@ -10,6 +10,6 @@ export class CollegeComponent implements OnInit {
 
   @Input() college!: CollegeInfo;
   ngOnInit(): void {
+    this.college.branches = this.college.branches.sort((a, b) => a.closingRank - b.closingRank);
   }
-
 }

@@ -5,29 +5,32 @@
 <div class="form-container flex items-center justify-items-center mx-5 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
   <form class="px-12 py-8 w-full" id="college-form" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm">
     <div class="mb-6">
-      <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
+      <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name*</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="name" type="text" placeholder="Name" [(ngModel)]="userInput.name">
+             name="name" type="text" placeholder="Name" [(ngModel)]="userInput.name" #name="ngModel" required>
+      <div class="text-red-600 text-sm" *ngIf="name.invalid && (name.dirty || name.touched)">Name is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email">
+             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required>
+      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Email is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone">
+             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required>
+      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Phone is required</div>
     </div>
     <div class="grid sm:grid-cols-3 gap-4">
       <div class="mb-4">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="rank">Rank*</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="rank" type="number" placeholder="Phone" required [(ngModel)]="userInput.rank">
+             name="rank" type="number" placeholder="Phone" required [(ngModel)]="userInput.rank" #rank="ngModel">
     </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Category</label>
-        <select id="category" name="category" [(ngModel)]="userInput.category" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
+        <select id="category" name="category" [(ngModel)]="userInput.category" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300" #category="ngModel">
           <option value="OPEN">Open</option>
           <option value="SC">SC</option>
           <option value="ST">ST</option>
@@ -35,7 +38,7 @@
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Seat pool</label>
-        <select id="category" name="seatPool" [(ngModel)]="userInput.seatPool" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
+        <select id="category" name="seatPool" [(ngModel)]="userInput.seatPool" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300" #seatPool="ngModel">
           <option value="Gender-Neutral">Gender Neutral</option>
           <option value="Female-Only">Female Only</option>
         </select>
@@ -51,7 +54,7 @@
 <div class="h-px mx-4 my-10 bg-blue-100"></div>
 
 <ng-container *ngIf="(colleges$ | async) as colleges; else loading">
-  <div *ngIf="colleges?.length === 0" class="text-lg font-italic mx-4 mb-4">No colleges found, try with different rank.</div>
+  <div *ngIf="colleges?.length === 0" class="text-lg font-italic mx-4 mb-4 text-center">No colleges found, try with different rank.</div>
   <div *ngIf="colleges?.length !== 0" class="text-2xl mx-4 mb-8">Top {{colleges?.length}} results</div>
   <div *ngFor="let college of colleges || []" class="mx-4 mb-4">
     <app-college [college]="college"></app-college>
