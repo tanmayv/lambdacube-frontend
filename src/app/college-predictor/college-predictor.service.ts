@@ -15,8 +15,8 @@ export class CollegePredictorService {
     return this.http.post(`${environment.apiUrl}/v1/userActivity`, {name, email, phone, extras});
   }
   
-  predict(rank: number, category: string, seatPool: string): Observable<CollegeInfo[]> {
-    return this.http.get<CollegeInfo[]>(`${environment.apiUrl}/v1/college?rank=${rank}&category=${category}&seatPool=${seatPool}&count=10`);
+  predict(rank: number, category: string, seatPool: string, skip:number = 0): Observable<CollegeInfo[]> {
+    return this.http.get<CollegeInfo[]>(`${environment.apiUrl}/v1/college?rank=${rank}&category=${category}&seatPool=${seatPool}&count=10&skip=${skip*10}`);
   }
    
   predictRank(marks: number, category: string = "CRL"): Observable<RankInfo> {

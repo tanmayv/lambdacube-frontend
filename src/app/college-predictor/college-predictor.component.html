@@ -53,13 +53,13 @@
 </div>
 <div class="h-px mx-4 my-10 bg-blue-100"></div>
 
-<ng-container *ngIf="(colleges$ | async) as colleges; else loading">
-  <div *ngIf="colleges?.length === 0" class="text-lg font-italic mx-4 mb-4 text-center">No colleges found, try with different rank.</div>
-  <div *ngIf="colleges?.length !== 0" class="text-2xl mx-4 mb-8">Top {{colleges?.length}} results</div>
-  <div *ngFor="let college of colleges || []" class="mx-4 mb-4">
+<ng-container *ngIf="(college$ | async) as colleges; else loading">
+  <div *ngIf="visibleColleges?.length === 0" class="text-lg font-italic mx-4 mb-4 text-center">No colleges found, try with different rank.</div>
+  <div *ngFor="let college of visibleColleges || []" class="mx-4 mb-4">
     <app-college [college]="college"></app-college>
   </div>
 </ng-container>
+<div class="loading" infiniteScroll (scrolled)="onScroll()"></div>
 <ng-template #loading>
 <div class="loading flex items-center justify-center min-h-screen">
   <div class="mt-8">Loading</div>

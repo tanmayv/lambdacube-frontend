@@ -25,6 +25,11 @@ export class RankPredictorComponent implements OnInit {
   }
 
   onSubmit() {
+    this.predictorService.trackUser(this.userInput.name, this.userInput.email, this.userInput.phone, {
+      type: "rank-prediction",
+      marks: this.userInput.marks,
+      category: this.userInput.category
+    }).subscribe();
     this.storageService.setUserInfo({name: this.userInput.name, email: this.userInput.email, phone: this.userInput.phone});
     this.rankPrediction = this.predictorService.predictRank(this.userInput.marks);
   }

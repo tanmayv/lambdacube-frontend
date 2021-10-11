@@ -10,6 +10,7 @@ import { CollegePredictorComponent } from './college-predictor/college-predictor
 import { CollegeComponent } from './college/college.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
+    InfiniteScrollModule,
     FormsModule,
     HttpClientModule,
     SharedModule,
