@@ -15,7 +15,7 @@ export class RankPredictorComponent implements OnInit {
 
   constructor(private router: Router, private predictorService: CollegePredictorService,
              private storageService: StorageService) { }
-  userInput: RankPredictorInput = new RankPredictorInput("", "", "", 0, "OPEN");
+  userInput: RankPredictorInput = new RankPredictorInput("", "", "", 0, "CRL");
   rankPrediction: Observable<RankInfo> = of(new RankInfo());
    
   
@@ -31,7 +31,7 @@ export class RankPredictorComponent implements OnInit {
       category: this.userInput.category
     }).subscribe();
     this.storageService.setUserInfo({name: this.userInput.name, email: this.userInput.email, phone: this.userInput.phone});
-    this.rankPrediction = this.predictorService.predictRank(this.userInput.marks);
+    this.rankPrediction = this.predictorService.predictRank(this.userInput.marks, this.userInput.category);
   }
 
   navToCollegePredictor(rank: number) {
