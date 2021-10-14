@@ -45,10 +45,10 @@
         <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is between {{rankRange.minRank}} and {{rankRange.maxRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor(rankRange.minRank)">available college courses</span> for this rank?</div>
       </div>
       <div *ngIf="rankRange.minRank !== undefined && rankRange.maxRank === undefined">
-        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is above {{rankRange.minRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor(rankRange.minRank)">available college courses</span> for this rank?</div>
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Sorry you may not be able to secure an IIT seat this time.</div>
       </div>
       <div *ngIf="rankRange.minRank === undefined && rankRange.maxRank !== undefined ">
-        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Sorry you may not be able to secure an IIT seat this time</div>
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is below {{rankRange.minRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor(rankRange.maxRank)">available college courses</span> for this rank?</div>
       </div>
     </ng-container>
   </form>
