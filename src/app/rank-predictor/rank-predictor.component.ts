@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CollegePredictorService } from '../college-predictor/college-predictor.service';
@@ -14,12 +15,13 @@ import { RankPredictorInput } from './rank-predictor-input';
 export class RankPredictorComponent implements OnInit {
 
   constructor(private router: Router, private predictorService: CollegePredictorService,
-             private storageService: StorageService) { }
+             private storageService: StorageService, private titleService: Title) { }
   userInput: RankPredictorInput = new RankPredictorInput("", "", "", 0, "CRL");
   rankPrediction: Observable<RankInfo> = of(new RankInfo());
   submitted = false;   
   
   ngOnInit(): void {
+    this.titleService.setTitle("Lambdacube rank predictor 2021");
     const userInfo: any = this.storageService.getUserInfo();
     this.userInput = {...this.userInput, ...userInfo };
   }

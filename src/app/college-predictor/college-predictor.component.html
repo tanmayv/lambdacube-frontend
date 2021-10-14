@@ -1,6 +1,6 @@
 <div class="flex flex-col items-start sm:items-center px-5">
-  <div class="text-2xl lg:text-4xl font-bold mb-4">College Predictor</div>
-  <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
+  <h1 class="text-2xl lg:text-4xl font-bold mb-4">College Predictor</h1>
+  <p class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE-Advanced rank.</p>
 </div>
 <div class="form-container flex items-center justify-items-center mx-5 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
   <form class="px-12 py-8 w-full" id="college-form" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
@@ -49,7 +49,7 @@
 </div>
 <div class="mt-8 bg-cover flex justify-center"> 
   <button type="submit" form="college-form"
-          class="inline-block px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
+          class="inline-block px-6 bg-accent hover:bg-accent hover:opacity-75 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
 </div>
 <div class="h-px mx-4 my-10 bg-blue-100"></div>
 
@@ -59,8 +59,8 @@
     <app-college [college]="college"></app-college>
   </div>
   <div class="flex justify-center gap-2" *ngIf="visibleColleges.length > 0">
-    <button (click)="prev()" class="inline-block my-2 px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="skip <= 0">Previous</button>
-    <button (click)="next()" class="inline-block my-2 px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="disableNext">Next</button>
+    <button (click)="prev()" class="inline-block my-2 px-6 bg-accent hover:bg-accent hover:opacity-75 shadow-sm text-white font-semibold text-lg py-3 text-black rounded w-48 text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="skip <= 0">Previous</button>
+    <button (click)="next()" class="inline-block my-2 px-6 bg-accent hover:bg-accent hover:opacity-75 shadow-sm text-white font-semibold text-lg py-3 rounded text-black w-48 text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="disableNext">Next</button>
   </div>
 </ng-container>
 

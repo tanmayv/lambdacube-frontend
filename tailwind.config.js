@@ -1,4 +1,5 @@
 const { guessProductionMode } = require("@ngneat/tailwind");
+const colors = require('tailwindcss/colors');
 
 process.env.TAILWIND_MODE = guessProductionMode() ? 'build' : 'watch';
 
@@ -12,6 +13,10 @@ module.exports = {
     },
     darkMode: 'class', // or 'media' or 'class'
     theme: {
+      colors: {
+        ...colors,
+        accent: "#69DADB"
+      },
       extend: {},
     },
     variants: {

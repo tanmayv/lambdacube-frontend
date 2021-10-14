@@ -1,6 +1,6 @@
 <div class="flex flex-col items-start sm:items-center px-5">
   <div class="text-2xl lg:text-4xl font-bold mb-4">Rank Predictor</div>
-  <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
+  <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE-Advanced rank.</div>
 </div>
 
 <div class="form-container flex items-center justify-items-center mx-10 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
@@ -27,10 +27,10 @@
       <div class="mb-6">
         <label class="block text-gray-700 text-lg font-bold mb-2" for="marks">Marks*</label>
         <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-               name="marks" type="number" placeholder="Phone" required [(ngModel)]="userInput.marks">
+               name="marks" type="number" placeholder="Marks" required [(ngModel)]="userInput.marks">
       </div>
       <div class="mb-6">
-        <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Category</label>
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="category">Category</label>
         <select id="category" name="category" [(ngModel)]="userInput.category" class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300">
           <option value="CRL">Common rank list</option>
           <option value="GEN-EWS">GEN-EWS</option>
@@ -55,7 +55,7 @@
 </div>
 <div class="mt-8 mb-8 bg-cover flex justify-center"> 
   <button type="submit" form="college-form"
-          class="inline-block px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
+          class="inline-block px-6 bg-accent hover:opacity-75 shadow-sm text-black w-48 font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all">Submit</button>
 </div>
 <ng-template #loading>Loading</ng-template>
 

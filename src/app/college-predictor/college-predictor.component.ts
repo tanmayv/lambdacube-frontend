@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +15,8 @@ import { CollegePredictorService } from './college-predictor.service';
 export class CollegePredictorComponent implements OnInit {
 
   constructor(private router: Router, private collegePredictorService: CollegePredictorService,
-             private storageService: StorageService, private route: ActivatedRoute) {}
+             private storageService: StorageService, private route: ActivatedRoute, private titleService: Title) {}
+
   userInput: CollegePredictorInput = new CollegePredictorInput("", "", "", 0, "OPEN", "Gender-Neutral");
   rankPrediction: any;
   newColleges$:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
@@ -27,6 +29,7 @@ export class CollegePredictorComponent implements OnInit {
   submitted = false;
 
   ngOnInit(): void {
+    this.titleService.setTitle("Lambdacube rank predictor 2021");
     this.college$ = this.newColleges$.pipe(map(x => {
       this.visibleColleges = x.length > 0? x: this.visibleColleges;
       this.disableNext = x.length === 0;
@@ -34,6 +37,8 @@ export class CollegePredictorComponent implements OnInit {
     }));
     const userInfo: any = this.storageService.getUserInfo();
     this.userInput = {...this.userInput, ...userInfo };
+    this.onSubmit({valid : true});
+    this.submitted = false;
     this.route.queryParams.subscribe(params => this.userInput.rank = params['rank'] || 0)
   }
 
@@ -67,12 +72,14 @@ export class CollegePredictorComponent implements OnInit {
   }
   
   prev() {
+    if (this.loading) return;
     this.skip -= 1;
     this.skip = Math.max(this.skip, 0);
     this.fetchMore();
   }
 
   next() {
+    if (this.loading) return;
     this.skip += 1;
     this.fetchMore();
   }
