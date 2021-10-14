@@ -13,20 +13,20 @@
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required>
-      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Email is required</div>
+             name="email" type="email" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required email>
+      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Valid Email is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required>
-      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Phone is required</div>
+             name="phone" type="text" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required pattern="[0-9]{10}">
+      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Valid 10 digit phone number is required</div>
     </div>
     <div class="grid sm:grid-cols-3 gap-4">
       <div class="mb-4">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="rank">Rank*</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="rank" type="number" placeholder="Phone" required [(ngModel)]="userInput.rank" #rank="ngModel">
+             name="rank" type="number" placeholder="Rank" required [(ngModel)]="userInput.rank" #rank="ngModel">
     </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Category</label>

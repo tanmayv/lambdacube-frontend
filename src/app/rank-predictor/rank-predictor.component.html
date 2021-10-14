@@ -2,6 +2,7 @@
   <div class="text-2xl lg:text-4xl font-bold mb-4">Rank Predictor</div>
   <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
 </div>
+
 <div class="form-container flex items-center justify-items-center mx-10 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
   <form class="px-12 py-8 w-full" id="college-form" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm">
     <div class="mb-6">
@@ -13,14 +14,14 @@
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="email" type="text" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required>
-      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Email is required</div>
+             name="email" type="email" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required email>
+      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Valid Email is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
-             name="phone" type="number" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required>
-      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Phone is required</div>
+             name="phone" type="text" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required pattern="[0-9]{10}">
+      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Valid 10 digit phone number is required</div>
     </div>
     <div class="grid sm:grid-cols-2 gap-4">
       <div class="mb-6">
@@ -47,7 +48,7 @@
         <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is above {{rankRange.minRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor(rankRange.minRank)">available college courses</span> for this rank?</div>
       </div>
       <div *ngIf="rankRange.minRank === undefined && rankRange.maxRank !== undefined ">
-        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Your predicted rank is below {{rankRange.maxRank}}. Find <span class="font-bold underline cursor-pointer text-blue-900" (click)="navToCollegePredictor(rankRange.maxRank)">available college courses</span> for this rank?</div>
+        <div class="py-4 px-4 bg-blue-100 rounded shadow shadow-lg text-lg">Sorry you may not be able to secure an IIT seat this time</div>
       </div>
     </ng-container>
   </form>
