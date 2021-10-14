@@ -17,14 +17,16 @@ export class RankPredictorComponent implements OnInit {
              private storageService: StorageService) { }
   userInput: RankPredictorInput = new RankPredictorInput("", "", "", 0, "CRL");
   rankPrediction: Observable<RankInfo> = of(new RankInfo());
-   
+  submitted = false;   
   
   ngOnInit(): void {
     const userInfo: any = this.storageService.getUserInfo();
     this.userInput = {...this.userInput, ...userInfo };
   }
 
-  onSubmit() {
+  onSubmit(userForm: any) {
+    this.submitted = true;
+    if(!userForm.valid) return;
     this.predictorService.trackUser(this.userInput.name, this.userInput.email, this.userInput.phone, {
       type: "rank-prediction",
       marks: this.userInput.marks,

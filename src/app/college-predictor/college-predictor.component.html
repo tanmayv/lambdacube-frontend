@@ -3,24 +3,24 @@
   <div class="text-lg lg:text-2xl mb-8 lg:mb-16">Predict your college and course using your JEE Mains rank.</div>
 </div>
 <div class="form-container flex items-center justify-items-center mx-5 lg:mx-60 bg-cover" style="background-image: url('./assets/gray-wave.png')">
-  <form class="px-12 py-8 w-full" id="college-form" (ngSubmit)="userForm.valid && onSubmit()" #userForm="ngForm">
+  <form class="px-12 py-8 w-full" id="college-form" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name*</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
              name="name" type="text" placeholder="Name" [(ngModel)]="userInput.name" #name="ngModel" required>
-      <div class="text-red-600 text-sm" *ngIf="name.invalid && (name.dirty || name.touched)">Name is required</div>
+      <div class="text-red-600 text-sm" *ngIf="name.invalid && (name.dirty || name.touched || submitted)">Name is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
              name="email" type="email" placeholder="Email" [(ngModel)]="userInput.email" #email="ngModel" required email>
-      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched)">Valid Email is required</div>
+      <div class="text-red-600 text-sm" *ngIf="email.invalid && (email.dirty || email.touched || submitted)">Valid Email is required</div>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-lg font-bold mb-2" for="phone">Phone</label>
       <input class="shadow shadow-lg appearance-none border-none rounded rounded-lg w-full py-4 px-4 text-gray-700 text-sm leading-tight focus:outline-none focus:border-indigo-300"
              name="phone" type="text" placeholder="Phone" [(ngModel)]="userInput.phone" #phone="ngModel" required pattern="[0-9]{10}">
-      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched)">Valid 10 digit phone number is required</div>
+      <div class="text-red-600 text-sm" *ngIf="phone.invalid && (phone.dirty || phone.touched || submitted)">Valid 10 digit phone number is required</div>
     </div>
     <div class="grid sm:grid-cols-3 gap-4">
       <div class="mb-4">
@@ -58,8 +58,12 @@
   <div *ngFor="let college of visibleColleges || []" class="mx-4 mb-4">
     <app-college [college]="college"></app-college>
   </div>
+  <div class="flex justify-center gap-2" *ngIf="visibleColleges.length > 0">
+    <button (click)="prev()" class="inline-block my-2 px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="skip <= 0">Previous</button>
+    <button (click)="next()" class="inline-block my-2 px-6 bg-indigo-600 hover:bg-indigo-400 shadow-sm text-white font-semibold text-lg py-3 rounded text-center hover:bg-tertiary duration-200 transition-all disabled:opacity-75 disabled:cursor-not-allowed" [disabled]="disableNext">Next</button>
+  </div>
 </ng-container>
-<div class="loading" infiniteScroll (scrolled)="onScroll()"></div>
+
 <ng-template #loading>
 <div class="loading flex items-center justify-center min-h-screen">
   <div class="mt-8">Loading</div>

@@ -22,10 +22,14 @@ export class CollegePredictorComponent implements OnInit {
   visibleColleges: any[] = [];
   loadMores = false;
   skip = 0;
+  loading = false;
+  disableNext = false;
+  submitted = false;
 
   ngOnInit(): void {
     this.college$ = this.newColleges$.pipe(map(x => {
-      this.visibleColleges = [...this.visibleColleges, ...x];
+      this.visibleColleges = x.length > 0? x: this.visibleColleges;
+      this.disableNext = x.length === 0;
       return this.visibleColleges;
     }));
     const userInfo: any = this.storageService.getUserInfo();
@@ -33,7 +37,10 @@ export class CollegePredictorComponent implements OnInit {
     this.route.queryParams.subscribe(params => this.userInput.rank = params['rank'] || 0)
   }
 
-  onSubmit() {
+  onSubmit(userForm: any) {
+    this.submitted = true;
+    if(!userForm.valid) return;
+
     this.collegePredictorService.trackUser(this.userInput.name, this.userInput.email, this.userInput.phone, {
       type: "college-prediction",
       rank: this.userInput.rank,
@@ -47,15 +54,25 @@ export class CollegePredictorComponent implements OnInit {
   }
   
   fetchMore() {
+    this.loading = true;
     this.collegePredictorService.predict(this.userInput.rank, this.userInput.category, this.userInput.seatPool, this.skip)
-      .subscribe(x => this.newColleges$.next(x))
+      .subscribe(x => {
+        this.loading = false;
+        this.newColleges$.next(x);
+      })
   }
 
   navToRankPredictor() {
     this.router.navigate(["rank-predictor"]);
   }
   
-  onScroll() {
+  prev() {
+    this.skip -= 1;
+    this.skip = Math.max(this.skip, 0);
+    this.fetchMore();
+  }
+
+  next() {
     this.skip += 1;
     this.fetchMore();
   }
