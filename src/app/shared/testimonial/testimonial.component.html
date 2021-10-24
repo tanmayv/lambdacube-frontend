@@ -1,0 +1,23 @@
+<h2 class="font-bold text-xl text-center my-8">Here's what our student say about Lambdacube</h2>
+<div class="mb-16 bg-auto relative flex flex-col">
+    <div class="mb-16  bg-auto top-0 left-0 right-0 absolute h-48 bg-no-repeat rounded-lg" style="background-image: url('./assets/blue-wave.png')"></div>
+    <carousel  [freeScroll]="true" [loop]="true" [cellWidth]="340" [height]="540" [arrows]="true">
+        <div class="carousel-cell" *ngFor="let data of testimonials">
+            <ng-container [ngTemplateOutlet]="testimonial" [ngTemplateOutletContext]="{data:data}"></ng-container>
+        </div>
+    </carousel>
+</div>
+<ng-template #testimonial let-data="data">
+    <div class="mx-1 flex flex-col pb-2" style="height: 100%">
+        <div class="bg-blue-100 rounded rounded-full flex-none w-24 h-24 relative top-12 left-4 overflow-hidden">
+            <img [src]="data.profile">
+        </div>
+        <div class="bg-white rounded rounded-lg shadow shadow-lg pt-12 text-sm p-2 sm:p-4 sm:pt-12 lg:text-sm flex-grow flex flex-col mb-2">
+            <p class="mt-2 sm:mt-4 flex-grow">{{data.text}}</p>
+            <p class="mt-2 font-bold">{{data.author}}</p>
+            <p class="mt-1 text-gray-500 felx-none">{{data.subHeading}}</p>
+            <p class="mt-1 text-gray-500 felx-none" *ngIf="data.year">Year: {{data.year}}</p>
+        </div>
+    </div>
+</ng-template>
+
