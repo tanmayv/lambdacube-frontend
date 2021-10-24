@@ -1,7 +1,7 @@
 <h2 class="font-bold text-xl text-center my-8">Here's what our student say about Lambdacube</h2>
 <div class="mb-16 bg-auto relative flex flex-col">
     <div class="mb-16  bg-auto top-0 left-0 right-0 absolute h-48 bg-no-repeat rounded-lg" style="background-image: url('./assets/blue-wave.png')"></div>
-    <carousel  [freeScroll]="true" [loop]="true" [cellWidth]="340" [height]="540" [arrows]="true">
+    <carousel  [freeScroll]="true" [loop]="true" [cellWidth]="340" [height]="550" [arrows]="true">
         <div class="carousel-cell" *ngFor="let data of testimonials">
             <ng-container [ngTemplateOutlet]="testimonial" [ngTemplateOutletContext]="{data:data}"></ng-container>
         </div>
